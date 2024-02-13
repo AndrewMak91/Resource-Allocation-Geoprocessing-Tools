@@ -20,7 +20,7 @@ def DataExistsIfThenElse_mb(in_data, data_type):
 
 
 #For inline variable substitution, parameters passed as a String are evaluated using locals(), globals() and isinstance(). To override, substitute values directly.
-def BuildRouteNetwork(Input_Study_Area_Feature="AOI", Distance_value_or_field_="3 Kilometers", Input_Road_Network_Features_to_Clip="https://services-ap1.arcgis.com/iA7fZQOnjY9D67Zx/arcgis/rest/services/OSM_AS_Highways/FeatureServer/0", Routes_ND_V3_xml="C:\\Users\\and10749\\OneDrive - Esri\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\network_template\\Routes_ND_V3.xml", Network_Dataset="C:\\Users\\and10749\\OneDrive - Esri\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\Network_Dataset", Point_Type="BOTH_ENDS"):  # Build Route Network
+def BuildRouteNetwork(Input_Study_Area_Feature="AOI", Distance_value_or_field_="3 Kilometers", Input_Road_Network_Features_to_Clip="https://services-ap1.arcgis.com/iA7fZQOnjY9D67Zx/arcgis/rest/services/OSM_AS_Highways/FeatureServer/0", Routes_ND_V3_xml="C:\\Users\\Computer Name\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\network_template\\Routes_ND_V3.xml", Network_Dataset="C:\\Users\\Computer Name\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\Network_Dataset", Point_Type="BOTH_ENDS"):  # Build Route Network
 
     # To allow overwriting outputs change overwriteOutput option to True.
     arcpy.env.overwriteOutput = False
@@ -30,18 +30,18 @@ def BuildRouteNetwork(Input_Study_Area_Feature="AOI", Distance_value_or_field_="
 
 
     # Process: Buffer (Buffer) (analysis)
-    Output_Feature_Class = "C:\\Users\\and10749\\OneDrive - Esri\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\AOI_Buffer"
+    Output_Feature_Class = "C:\\Users\\Computer Name\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\AOI_Buffer"
     arcpy.analysis.Buffer(in_features=Input_Study_Area_Feature.__str__().format(**locals(),**globals())if isinstance(Input_Study_Area_Feature, str) else Input_Study_Area_Feature, out_feature_class=Output_Feature_Class, buffer_distance_or_field=Distance_value_or_field_.__str__().format(**locals(),**globals())if isinstance(Distance_value_or_field_, str) else Distance_value_or_field_)
 
     # Process: Pairwise Clip (Pairwise Clip) (analysis)
-    streets = "C:\\Users\\and10749\\OneDrive - Esri\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\Network_Dataset\\streets"
+    streets = "C:\\Users\\Computer Name\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\Network_Dataset\\streets"
     arcpy.analysis.PairwiseClip(in_features=Input_Road_Network_Features_to_Clip.__str__().format(**locals(),**globals())if isinstance(Input_Road_Network_Features_to_Clip, str) else Input_Road_Network_Features_to_Clip, clip_features=Output_Feature_Class, out_feature_class=streets)
 
     # Process: If Data Exists (If Data Exists) ()
     True_9, False_10 = DataExistsIfThenElse_mb(in_data=streets)
 
     # Process: Feature Vertices To Points (Feature Vertices To Points) (management)
-    junction = "C:\\Users\\and10749\\OneDrive - Esri\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\Network_Dataset\\junction"
+    junction = "C:\\Users\\Computer Name\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb\\Network_Dataset\\junction"
     arcpy.management.FeatureVerticesToPoints(in_features=streets, out_feature_class=junction, point_location=Point_Type.__str__().format(**locals(),**globals())if isinstance(Point_Type, str) else Point_Type)
 
     # Process: If Data Exists (2) (If Data Exists) ()
@@ -57,5 +57,5 @@ def BuildRouteNetwork(Input_Study_Area_Feature="AOI", Distance_value_or_field_="
 
 if __name__ == '__main__':
     # Global Environment settings
-    with arcpy.EnvManager(scratchWorkspace="C:\\Users\\and10749\\OneDrive - Esri\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb", workspace="C:\\Users\\and10749\\OneDrive - Esri\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb"):
+    with arcpy.EnvManager(scratchWorkspace="C:\\Users\\Computer Name\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb", workspace="C:\\Users\\Computer Name\\Esri_Training\\SpatialAnalysis_Challenge\\Workflow\\NetworkAnalysis_Pro29_Build\\NetworkAnalysis_Package\\NetworkAnalysis_Package.gdb"):
         BuildRouteNetwork(*argv[1:])
